@@ -33,4 +33,4 @@ Here is a list of things I want my bot to do (will be updated!):
 
 - [x] Configuration command
 - [ ] Daily news feed
-- [ ] Github notification feed
+- [ ] Github notification feed (https://docs.github.com/en/rest/activity/notifications#list-notifications-for-the-authenticated-user)
