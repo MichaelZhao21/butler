@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node src/index.js",
         "dev": "nodemon src/index.js",
-        "deploy": "node src/deploy.js"
+        "deploy": "node src/deploy.js",
+        "build": "node build.js"
     },
     "dependencies": {
         "@discordjs/builders": "^0.15.0",
@@ -16,6 +17,7 @@
         "dotenv": "^16.0.1"
     },
     "devDependencies": {
+        "esbuild": "^0.14.48",
         "nodemon": "^2.0.16"
     }
 }

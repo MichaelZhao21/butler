@@ -1,6 +1,12 @@
-require('dotenv').config();
-const fs = require('fs');
-const { Client, Collection } = require('discord.js');
+import dotenv from 'dotenv';
+import fs from 'fs';
+import { Client, Collection } from 'discord.js';
+
+// Import all commands
+import configCommand from './commands/config';
+
+// Environmental variables
+dotenv.config();
 
 // Create client
 const client = new Client({
@@ -23,14 +29,9 @@ client.on('ready', async () => {
 // Login using bot token
 client.login(process.env.TOKEN);
 
-// Load in command files
-const commandFiles = fs.readdirSync('src/commands').filter((file) => file.endsWith('.js'));
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    // Set a new item in the Collection
-    // With the key as the command name and the value as the exported module
-    client.commands.set(command.data.name, command);
-}
+// Set a new item in the Collection from command files
+// With the key as the command name and the value as the exported module
+client.commands.set(configCommand.data.name, configCommand);
 
 // Listen for commands
 client.on('interactionCreate', async (interaction) => {

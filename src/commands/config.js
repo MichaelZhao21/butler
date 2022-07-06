@@ -1,5 +1,5 @@
-const { CommandInteraction, MessageEmbed } = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 /**
  * Sends help message to user
@@ -20,7 +20,7 @@ async function sendHelpMessage(interaction) {
     interaction.reply({ embeds: [embed] });
 }
 
-module.exports = {
+export default {
     data: new SlashCommandBuilder()
         .setName('config')
         .setDescription('Configures a specific option')
@@ -30,7 +30,8 @@ module.exports = {
                 .setName('dailytime')
                 .setDescription('Time of the daily update (formatted as HH:mm in 24-hour time)')
         ),
-    async execute(interaction) {
+
+    execute: async (interaction) => {
         await sendHelpMessage(interaction);
     },
 };
