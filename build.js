@@ -1,6 +1,6 @@
 require('esbuild')
     .build({
-        entryPoints: ['src/index.js'],
+        entryPoints: ['src/index.ts'],
         bundle: true,
         outfile: 'dist.js',
         platform: 'node',

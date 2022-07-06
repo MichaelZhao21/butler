@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import fs from 'fs';
 import { Client, Collection } from 'discord.js';
 
 // Import all commands
@@ -15,7 +14,7 @@ const client = new Client({
 });
 
 // Attach collection of commands to client object to use in other files
-client.commands = new Collection();
+const commands = new Collection<string, CommandObject>();
 
 // Send message and change presence message when ready
 client.on('ready', async () => {
@@ -31,13 +30,13 @@ client.login(process.env.TOKEN);
 
 // Set a new item in the Collection from command files
 // With the key as the command name and the value as the exported module
-client.commands.set(configCommand.data.name, configCommand);
+commands.set(configCommand.data.name, configCommand);
 
 // Listen for commands
 client.on('interactionCreate', async (interaction) => {
     if (!interaction.isCommand()) return;
 
-    const command = client.commands.get(interaction.commandName);
+    const command = commands.get(interaction.commandName);
     if (!command) return;
 
     try {
