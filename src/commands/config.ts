@@ -1,5 +1,9 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import state from '../functions/state';
+import dayjs from 'dayjs';
+import { saveSettings } from '../functions/settings';
+import { createCronTask } from '../util';
 
 /**
  * Sends config message to user with all fields that were configured
@@ -14,6 +18,18 @@ async function sendConfigMessage(interaction: CommandInteraction) {
     if (dailytime) {
         configCount++;
         embed.addField('Daily Update Time', dailytime.value as string);
+
+        const val = dailytime.value.toString();
+        const hour = val.substring(0, 2);
+        const min = val.substring(3, 5);
+        const time = { hour, min };
+        const prevState = state.getSettings();
+        state.setSettings({
+            ...prevState,
+            time,
+        });
+        state.setTask(createCronTask(time, interaction.client));
+        saveSettings(state.getSettings());
     }
 
     embed.setDescription(`${configCount} fields were updated!`);

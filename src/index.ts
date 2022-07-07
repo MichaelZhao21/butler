@@ -1,11 +1,17 @@
 import dotenv from 'dotenv';
 import { Client, Collection } from 'discord.js';
+import { createCronTask, getUser } from './util';
+import { loadSettingsFromFile } from './functions/settings';
+import state from './functions/state';
 
 // Import all commands
 import configCommand from './commands/config';
 
 // Environmental variables
 dotenv.config();
+
+// Set settings
+state.setSettings(loadSettingsFromFile());
 
 // Create client
 const client = new Client({
@@ -20,8 +26,8 @@ const commands = new Collection<string, CommandObject>();
 client.on('ready', async () => {
     client.user.setPresence({ activities: [{ name: 'ur face :)', type: 'LISTENING' }] });
     console.log(`Ready! Logged in as ${client.user.tag}`);
-    
-    const user = await client.users.fetch(process.env.USER_ID);
+
+    const user = await getUser(client);
     user.send('Butler Online!');
 });
 
@@ -49,3 +55,6 @@ client.on('interactionCreate', async (interaction) => {
         });
     }
 });
+
+// Start the crontask
+state.setTask(createCronTask(state.getSettings().time, client));
