@@ -25,12 +25,16 @@ To run the bot, you will need to set up a configuration `.env` file in the proje
 TOKEN="[Discord bot token]"
 CLIENT_ID="[Discord bot application ID (18 digit number)"
 USER_ID="[Discord user ID]"
+NEWS_API="[Key from news API]"
 ```
+
+To get the `NEWS_API` env key, go to the [News API Site](https://newsapi.org/) to register for a free key (100 requests per day).
 
 ## Todo
 
 Here is a list of things I want my bot to do (will be updated!):
 
 - [x] Configuration command
-- [ ] Daily news feed
+- [x] Daily news feed
+- [x] xkcd daily comic
 - [ ] Github notification feed (https://docs.github.com/en/rest/activity/notifications#list-notifications-for-the-authenticated-user)
